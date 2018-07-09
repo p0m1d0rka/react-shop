@@ -1,5 +1,6 @@
 {
-  "dependencies": {},
+  "dependencies": {
+  },
   "scripts": {
     "start": "webpack-dev-server --mode development",
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -19,7 +20,9 @@
     "style-loader": "^0.21.0",
     "webpack": "^4.15.1",
     "webpack-cli": "^3.0.8",
-    "webpack-dev-server": "^3.1.4"
+    "webpack-dev-server": "^3.1.4",
+    "react": "^16.4.1",
+    "react-dom": "^16.4.1"
   },
   "author": "",
   "license": "ISC",

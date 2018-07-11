@@ -1,5 +1,5 @@
 import React from 'react';
-import _ from 'lodash';
+import { _ } from '../../../initializers/production.js';
 import db from '../../db.js';
 
 export default class Voucher extends React.Component {

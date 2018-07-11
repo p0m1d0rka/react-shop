@@ -1,4 +1,4 @@
-import _ from 'lodash';
+import { _ } from '../initializers/production.js';
 
 export default class Calculator { 
   constructor(obj = {firstNumber: 1, secondNumber: 1, operator: '+'}){

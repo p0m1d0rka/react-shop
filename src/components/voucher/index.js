@@ -15,31 +15,33 @@ export default class Voucher extends React.Component {
     console.log(new Calculator(obj).calc())
   }
 
-  addItem(item_id){
-    let elem = _.find(this.state.items, {item_id: item_id})
+  addItem(itemId){
+    const { items } = this.state
+    let elem = _.find(items, {itemId})
     if(typeof elem != 'undefined'){
       let new_state = []
-      _.each(this.state.items, item => {
-        if(item.item_id == item_id){
+      _.each(items, item => {
+        if(item.itemId == itemId){
           item.quantity ++
         }
         new_state.push(item)
       })
       this.setState({items: new_state})
     }else{
-      let new_state = this.state.items
-      new_state.push({item_id: item_id, quantity: 1})
+      let new_state = items
+      new_state.push({itemId: itemId, quantity: 1})
       this.setState({items: new_state})
     }
     this.showCalculator({firstNumber: 1, secondNumber: 2, operator: '+'})
   }
 
-  removeItem(item_id){
-    let elem = _.find(this.state.items, {item_id: item_id})
+  removeItem(itemId){
+    const { items } = this.state
+    let elem = _.find(items, {itemId})
     if(typeof elem != 'undefined'){
       let new_state = []
-      _.each(this.state.items, item => {
-        if(item.item_id == item_id){
+      _.each(items, item => {
+        if(item.itemId == itemId){
           item.quantity --
         }
         if(item.quantity > 0 ){
@@ -51,32 +53,50 @@ export default class Voucher extends React.Component {
   }
 
   countTotal(){
-    return this.state.items.map(item => item.quantity * this.findItem(item.item_id).item_price).reduce((prevVal, curVal, index, array)=> {return prevVal+curVal}, 0)
-  
+    const { items } = this.state
+    return(
+      items
+      .map(item => item.quantity * this.findItem(item.itemId).itemPrice)
+      .reduce((acc, curVal)=> {return acc+curVal}, 0)
+    )
   }
-  findItem(item_id){
-    return _.find(db, {item_id: item_id})
+  findItem(itemId){
+    return _.find(db, {itemId: itemId})
   }
 
   liItem(item){
-    const dbItem = this.findItem(item.item_id)
-    return <li key={dbItem.item_id}>item_id = {dbItem.item_id}, name = {dbItem.item_name}, quantity = {item.quantity}, price_for_one = {dbItem.item_price}, total = {item.quantity * dbItem.item_price} </li>
+    const dbItem = this.findItem(item.itemId)
+    return(
+      <li key={dbItem.itemId}>
+        itemId = {dbItem.itemId},
+        name = {dbItem.itemName}, 
+        quantity = {item.quantity}, 
+        priceForOne = {dbItem.itemPrice}, 
+        total = {item.quantity * dbItem.itemPrice} 
+      </li>
+    )
   }
 
   render() {
     return (
       <div>
         <div>
-          { db.map(item => <button key={item.item_id} onClick={()=>this.addItem(item.item_id)}>Добавить {item.item_name}</button> )}
+          { db.map(item => 
+              <button key={item.itemId} onClick={()=>this.addItem(item.itemId)}>
+                Добавить {item.itemName}
+              </button> 
+          )}
         </div>
         <div>
-          { db.map(item => <button key={item.item_id} onClick={()=>this.removeItem(item.item_id)}>Удалить {item.item_name}</button> )}
+          { db.map(item => 
+            <button key={item.itemId} onClick={()=>this.removeItem(item.itemId)}>
+            Удалить {item.itemName}</button> 
+          )}
         </div>
         <div>
           {this.state.items.map(item => this.liItem(item))}
         </div>
         <div>Total: { this.countTotal() }</div>
-
       </div>
     );
   }

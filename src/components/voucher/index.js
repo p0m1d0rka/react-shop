@@ -7,8 +7,7 @@ export default class Voucher extends React.Component {
   constructor(props){
     super(props)
     this.state = { items: [] }
-    this.addItem = this.addItem.bind(this);
-    this.liItem = this.liItem.bind(this);
+    // this.liItem = this.liItem.bind(this);
   }
 
   showCalculator(obj){
@@ -82,19 +81,19 @@ export default class Voucher extends React.Component {
   render() {
     return (
       <div>
-        <div>
+        <ul>
           { db.map(item => 
               <button key={item.itemId} onClick={()=>this.addItem(item.itemId)}>
                 Добавить {item.itemName}
               </button> 
           )}
-        </div>
-        <div>
+        </ul>
+        <ul>
           { db.map(item => 
             <button key={item.itemId} onClick={()=>this.removeItem(item.itemId)}>
             Удалить {item.itemName}</button> 
           )}
-        </div>
+        </ul>
         <div>
           {this.state.items.map(item => this.liItem(item))}
         </div>

@@ -21,14 +21,15 @@ export default class Voucher extends React.Component {
     if(typeof elem != 'undefined'){
       let new_state = []
       _.each(items, item => {
-        if(item.itemId == itemId){
-          item.quantity ++
+        let mutateItem = Object.assign({}, item)
+        if(mutateItem.itemId == itemId){
+          mutateItem.quantity ++
         }
-        new_state.push(item)
+        new_state.push(mutateItem)
       })
       this.setState({items: new_state})
     }else{
-      let new_state = items
+      let new_state =  items.slice();
       new_state.push({itemId: itemId, quantity: 1})
       this.setState({items: new_state})
     }
@@ -41,11 +42,12 @@ export default class Voucher extends React.Component {
     if(typeof elem != 'undefined'){
       let new_state = []
       _.each(items, item => {
-        if(item.itemId == itemId){
-          item.quantity --
+        let mutateItem = Object.assign({}, item)
+        if(mutateItem.itemId == itemId){
+          mutateItem.quantity --
         }
-        if(item.quantity > 0 ){
-          new_state.push(item)
+        if(mutateItem.quantity > 0 ){
+          new_state.push(mutateItem)
         }
       })
       this.setState({items: new_state})

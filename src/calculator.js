@@ -8,7 +8,7 @@ export default class Calculator {
   _validate(){
     if(!_.includes(this.available_operators, this.params.operator) && 
     typeof this.params.firstNumber != 'number' && 
-    typeof this.params.firstNumber != 'number'){
+    typeof this.params.secondNumber != 'number'){
       throw `Incorrect input ${obj}`
     }
   }

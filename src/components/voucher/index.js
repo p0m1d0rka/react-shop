@@ -1,6 +1,7 @@
 import React from 'react';
 import { _ } from '../../../initializers/production.js';
 import db from '../../db.js';
+import Calculator from '../../calculator.js';
 
 export default class Voucher extends React.Component {
   constructor(props){
@@ -9,6 +10,11 @@ export default class Voucher extends React.Component {
     this.addItem = this.addItem.bind(this);
     this.liItem = this.liItem.bind(this);
   }
+
+  showCalculator(obj){
+    console.log(new Calculator(obj).calc())
+  }
+
   addItem(item_id){
     let elem = _.find(this.state.items, {item_id: item_id})
     if(typeof elem != 'undefined'){
@@ -25,7 +31,9 @@ export default class Voucher extends React.Component {
       new_state.push({item_id: item_id, quantity: 1})
       this.setState({items: new_state})
     }
+    this.showCalculator({firstNumber: 1, secondNumber: 2, operator: '+'})
   }
+
   removeItem(item_id){
     let elem = _.find(this.state.items, {item_id: item_id})
     if(typeof elem != 'undefined'){
@@ -41,12 +49,15 @@ export default class Voucher extends React.Component {
       this.setState({items: new_state})
     }
   }
+
   countTotal(){
     return this.state.items.map(item => item.quantity * this.findItem(item.item_id).item_price).reduce((prevVal, curVal, index, array)=> {return prevVal+curVal}, 0)
+  
   }
   findItem(item_id){
     return _.find(db, {item_id: item_id})
   }
+
   liItem(item){
     const dbItem = this.findItem(item.item_id)
     return <li key={dbItem.item_id}>item_id = {dbItem.item_id}, name = {dbItem.item_name}, quantity = {item.quantity}, price_for_one = {dbItem.item_price}, total = {item.quantity * dbItem.item_price} </li>

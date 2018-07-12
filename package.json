@@ -1,10 +1,11 @@
 {
-  "dependencies": {},
+  "dependencies": {
+  },
   "scripts": {
-    "start": "webpack-dev-server",
+    "start": "webpack-dev-server --mode development",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "webpack --config webpack.config.js",
-    "watch": "webpack --watch"
+    "build": "webpack --config webpack.config.js --mode production",
+    "watch": "webpack --watch --mode development"
   },
   "name": "react_shop",
   "version": "1.0.0",
@@ -19,7 +20,9 @@
     "style-loader": "^0.21.0",
     "webpack": "^4.15.1",
     "webpack-cli": "^3.0.8",
-    "webpack-dev-server": "^3.1.4"
+    "webpack-dev-server": "^3.1.4",
+    "react": "^16.4.1",
+    "react-dom": "^16.4.1"
   },
   "author": "",
   "license": "ISC",

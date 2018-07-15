@@ -6,17 +6,18 @@ import './product_card.css';
 
 export default class ProductCard extends React.Component {
   render() {
+    const { product } = this.props
     return (
       <div className='productCard'>
         <Image 
-          src='http://lenis-animal.ru/wp-content/uploads/2016/09/sterilizacia-koshki.jpg' 
+          src={ product.imageUrl }
           width='100px' 
           height='100px'
         />
         <TextBox>
-          text_box
+          { product.title }
         </TextBox>
-        <Price>10$</Price>
+        <Price>{ product.price }$</Price>
       </div>
     );
   }

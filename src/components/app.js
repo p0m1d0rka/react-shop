@@ -3,6 +3,7 @@ import HelloWorld from './hello_world/hello_world.js'
 import '../style.css';
 import Voucher from './voucher/voucher.js';
 import Image from './image/image.js'
+import TextBox from './text_box/text_box.js';
 
 export default class App extends React.Component{
   render() {
@@ -15,6 +16,7 @@ export default class App extends React.Component{
         width='200px' 
         height='100px'
       />
+      <TextBox>text box string</TextBox>
     </div>
     );
   }

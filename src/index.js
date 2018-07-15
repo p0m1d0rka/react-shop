@@ -1,9 +1,9 @@
 import ReactDOM from 'react-dom';
 import React from 'react';
-import App from './components/app.js'
-
+import CatalogPage from './components/catalog_page.js'
+import Products from './constants/products.js';
 
 ReactDOM.render(
-  <App />,
+  <CatalogPage products={ Products }/>,
   document.getElementById('reactApp')
 );

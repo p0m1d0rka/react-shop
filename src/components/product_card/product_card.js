@@ -11,8 +11,8 @@ export default class ProductCard extends React.Component {
       <div className='productCard'>
         <Image 
           src={ product.imageUrl }
-          width='100px' 
-          height='100px'
+          width='200px' 
+          height='200px'
         />
         <TextBox>
           { product.title }

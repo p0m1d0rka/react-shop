@@ -5,7 +5,7 @@ export default class Image extends React.Component {
     const { src, width, height, alt } = this.props
     return (
       <div>
-        <img src={src} style={{ width: width, height: height }} alt={alt} />
+        <img src={src} style={{ width, height }} alt={alt} />
       </div>
     );
   }

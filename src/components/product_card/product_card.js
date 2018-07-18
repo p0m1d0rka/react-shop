@@ -18,7 +18,9 @@ export default class ProductCard extends React.Component {
         <TextBox>
           { product.title }
         </TextBox>
-        <Price>{ product.price }$</Price>
+        <Price currency='USD' locale="en-US">
+          { product.price }
+        </Price>
       </div>
     );
   }

@@ -2,9 +2,10 @@ import React from 'react';
 
 export default class Price extends React.Component {
   render() {
-    const { children } = this.props
+    const { children, currency, locale } = this.props
+    const intl = new Intl.NumberFormat(locale, { style: "currency", currency })
     return (
-      <span>{children}</span>
+      <span>{ intl.format(children) }</span>
     );
   }
 }

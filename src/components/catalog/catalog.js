@@ -7,7 +7,12 @@ export default class Catalog extends React.Component {
     const { products } = this.props
     return (
       <div className='catalog'>
-        { products.map(product => <ProductCard key={ product.id } product={ product }/>) }
+        { products.map(product => 
+          <ProductCard 
+            key={ `productCard-${product.id}` } 
+            product={ product }
+          />) 
+        }
       </div>
     );
   }

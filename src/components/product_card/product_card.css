@@ -1,0 +1,7 @@
+.productCard{
+    border: 1px solid #000;
+    flex: none auto;
+    width: 200px;
+    height: 300px;
+    margin: 20px 20px 20px 20px;
+}

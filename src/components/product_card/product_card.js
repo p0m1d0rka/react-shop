@@ -30,38 +30,41 @@ export default class ProductCard extends React.Component {
   render() {
     const { product } = this.props
     const { quantity } = this.state
-
     return (
-      <div className='productCard'>
-        <Image 
-          src={ product.imageUrl }
-          width='200px' 
-          height='200px'
-          alt={ product.title }
-        />
-        <TextBox>
-          { product.title }
-        </TextBox>
-        <Price currency='USD' locale="en-US">
-          { product.price }
-        </Price>
-        <Input placeholder='Кол-во' value={ quantity } onChange={ (e) => this.handleQuantity(e) }/>
-        <CartManager.Consumer >
-          {
-            toCart => {
-              return (
+      <CartManager.Consumer>
+        {
+          manager => {
+            return (
+              <div 
+                onDragStart={(e) => manager.dragStart(e, product.id)}
+                className='productCard' 
+                draggable
+              >
+                <Image 
+                  src={ product.imageUrl }
+                  width='200px' 
+                  height='200px'
+                  alt={ product.title }
+                />
+                <TextBox >
+                  { product.title }
+                </TextBox>
+                <Price currency='USD' locale="en-US">
+                  { product.price }
+                </Price>
+                <Input placeholder='Кол-во' value={ quantity } onChange={ (e) => this.handleQuantity(e) }/>
                 <Button
                   color='success'
-                  onClick={(e) => toCart(e, product.id, this.state.quantity, this.dropQuantity)}
+                  onClick={(e) => manager.toCart(e, product.id, this.state.quantity, this.dropQuantity)}
                 >
-                <span>В корзину</span>
-                <FontAwesomeIcon icon={ faCartPlus }  size="1x"/>
+                  <span>В корзину</span>
+                  <FontAwesomeIcon icon={ faCartPlus }  size="1x"/>
                 </Button>
-              )
-            }
+              </div>
+            )
           }
-        </CartManager.Consumer>        
-      </div>
+        }
+      </CartManager.Consumer>
     );
   }
 }

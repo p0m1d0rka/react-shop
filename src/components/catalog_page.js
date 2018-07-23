@@ -35,11 +35,32 @@ export default class CatalogPage extends React.Component{
     dropQuantity()
   }
 
+  dragOver = (e) => {
+    e.preventDefault()
+  } 
+
+  dragDrop = (e) => {
+    const productId = e.dataTransfer.getData('text')
+    this.toCart(e, parseInt(productId, 10), 1, ()=>{})
+    console.log(`drag drop productId=${productId}`)
+  }
+
+  dragStart = (e, id) => {
+    e.dataTransfer.setData('text', id)
+  }
+
   render() {
     const { products } = this.props
     return (
       <ProductsInCart.Provider value={this.state.productsInCart}>
-        <CartManager.Provider value={this.toCart}>
+        <CartManager.Provider value={
+          {
+            toCart: this.toCart, 
+            dragOver: this.dragOver, 
+            dragDrop: this.dragDrop,
+            dragStart: this.dragStart
+          }}
+        >
           <Catalog products={ products } />
           <CartContent />
         </CartManager.Provider>

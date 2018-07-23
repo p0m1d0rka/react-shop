@@ -12,7 +12,7 @@ export default class CatalogPage extends React.Component{
     this.toCart = bind(this.toCart, this)
   }
 
-  toCart(e, id) {
+  toCart(e, id, quantity, dropQuantity) {
     const { products } = this.props
     const { productsInCart } = this.state
     let elem = find(productsInCart, {id})
@@ -21,17 +21,18 @@ export default class CatalogPage extends React.Component{
       each(productsInCart, item => {
         let mutateItem = Object.assign({}, item)
         if(mutateItem.id == id){
-          mutateItem.quantity ++
+          mutateItem.quantity = mutateItem.quantity + parseInt(quantity, 10)
         }
         new_state.push(mutateItem)
       })
       this.setState({productsInCart: new_state})
     }else{
       let new_state =  productsInCart.slice();
-      let new_product = find(products, {id})
-      new_state.push(merge(new_product, {quantity: 1}))
+      let new_product = find(products, { id })
+      new_state.push(merge(new_product, { quantity: parseInt(quantity, 10) }))
       this.setState({productsInCart: new_state})
     }
+    dropQuantity()
   }
 
   render() {

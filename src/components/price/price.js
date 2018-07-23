@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 export default class Price extends React.Component {
   render() {
@@ -8,4 +9,16 @@ export default class Price extends React.Component {
       <span>{ intl.format(children) }</span>
     );
   }
+}
+
+Price.propTypes = {
+  children: PropTypes.number,
+  currency: PropTypes.oneOf(['USD']),
+  locale: PropTypes.oneOf(['en-US'])
+}
+
+Price.defaultProps = {
+  children: 0,
+  currency: 'USD',
+  locale: 'en-US'
 }

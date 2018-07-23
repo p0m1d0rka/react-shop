@@ -2,7 +2,8 @@ import React from 'react';
 import Image from '../image/image.js';
 import TextBox from '../text_box/text_box.js';
 import Price from '../price/price.js';
-import './product_card.css';
+import './product_card.scss';
+
 
 export default class ProductCard extends React.Component {
   render() {

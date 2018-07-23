@@ -1,6 +1,7 @@
 import React from 'react';
 import ProductCard from '../product_card/product_card.js';
-import './catalog.css';
+import Cart from '../cart/cart.js';
+import './catalog.scss';
 
 export default class Catalog extends React.Component {
   render() {
@@ -13,6 +14,7 @@ export default class Catalog extends React.Component {
             product={ product }
           />) 
         }
+        <Cart />
       </div>
     );
   }

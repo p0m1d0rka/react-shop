@@ -1,5 +1,4 @@
 import React from 'react';
-import '../style.css';
 import Catalog from './catalog/catalog.js';
 
 export default class CatalogPage extends React.Component{

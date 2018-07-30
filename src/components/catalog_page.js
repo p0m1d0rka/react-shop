@@ -1,5 +1,5 @@
 import React from 'react';
-import  { bind, each, merge, find, map, assign, reduce }  from 'lodash';
+import  { bind, find, assign, reduce, includes }  from 'lodash';
 import Catalog from './catalog/catalog.js';
 import CartContent from './cart_content/cart_content.js';
 import Products from '../constants/products.js';
@@ -19,20 +19,17 @@ export default class CatalogPage extends React.Component{
 
   addToCart(product, quantity=1) {
     const { entries } = this.state.cart
-    let newState =  entries.slice();
-    let entry = find(entries, { id: product.id })
+    let newEntries =  entries.slice();
 
-    if(typeof entry != 'undefined'){
-      newState = map(newState, (cartProduct) => {
-        cartProduct.id == product.id ? cartProduct.quantity += quantity : null
-        return cartProduct
-      })
+    if(includes(newEntries, product)){
+      find(newEntries, product).quantity += quantity
     }else{
-      newState.push(assign(product, { quantity }))
+      newEntries.push(assign(product, { quantity }))
     }
 
-    this.setState({cart: {entries: newState}})
+    this.setState({cart: {entries: newEntries}})
   }
+
   getProducts = () => this.state.cart.entries
 
   getTotalCartEntries = () =>  reduce(

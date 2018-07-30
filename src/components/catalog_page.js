@@ -20,15 +20,15 @@ export default class CatalogPage extends React.Component{
   addToCart(product, quantity=1) {
     const { entries } = this.state.cart
     let newState =  entries.slice();
-    let elem = find(entries, { id: product.id })
+    let entry = find(entries, { id: product.id })
 
-    if(typeof elem != 'undefined'){
+    if(typeof entry != 'undefined'){
       newState = map(newState, (cartProduct) => {
         cartProduct.id == product.id ? cartProduct.quantity += quantity : null
         return cartProduct
       })
     }else{
-      newState.push(assign(product, { quantity: parseInt(quantity, 10) }))
+      newState.push(assign(product, { quantity }))
     }
 
     this.setState({cart: {entries: newState}})
@@ -47,9 +47,6 @@ export default class CatalogPage extends React.Component{
       <CartManager.Provider value={
         {
           addToCart: this.addToCart, 
-          dragOver: this.dragOver, 
-          dragDrop: this.dragDrop,
-          dragStart: this.dragStart,
           getProducts: this.getProducts(),
           getTotalCartEntries: this.getTotalCartEntries()
         }}

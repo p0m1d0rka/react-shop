@@ -8,17 +8,13 @@ export default class Cart extends Component {
   render() {
     return (
       <CartManager.Consumer>
-        {
-          manager => {
-            return (
-              <div>
-                <span>
-                  { manager.getTotalCartEntries}
-                </span>
-                <FontAwesomeIcon icon={ faShoppingCart }  size="3x"/>
-              </div>
-            )
-          }
+        { manager => 
+            <div>
+              <span>
+                { manager.getTotalCartEntries}
+              </span>
+              <FontAwesomeIcon icon={ faShoppingCart }  size="3x"/>
+            </div>
         }
       </CartManager.Consumer>
     )

@@ -2,6 +2,7 @@ import React from 'react';
 import  { bind, each, merge, find}  from 'lodash';
 import Catalog from './catalog/catalog.js';
 import CartContent from './cart_content/cart_content.js';
+import Products from '../constants/products.js';
 export const ProductsInCart = React.createContext([])
 export const CartManager = React.createContext()
 
@@ -13,7 +14,6 @@ export default class CatalogPage extends React.Component{
   }
 
   toCart(e, id, quantity, dropQuantity) {
-    const { products } = this.props
     const { productsInCart } = this.state
     let elem = find(productsInCart, {id})
     if(typeof elem != 'undefined'){
@@ -28,7 +28,7 @@ export default class CatalogPage extends React.Component{
       this.setState({productsInCart: new_state})
     }else{
       let new_state =  productsInCart.slice();
-      let new_product = find(products, { id })
+      let new_product = find(Products, { id })
       new_state.push(merge(new_product, { quantity: parseInt(quantity, 10) }))
       this.setState({productsInCart: new_state})
     }
@@ -50,7 +50,6 @@ export default class CatalogPage extends React.Component{
   }
 
   render() {
-    const { products } = this.props
     return (
       <ProductsInCart.Provider value={this.state.productsInCart}>
         <CartManager.Provider value={
@@ -61,7 +60,7 @@ export default class CatalogPage extends React.Component{
             dragStart: this.dragStart
           }}
         >
-          <Catalog products={ products } />
+          <Catalog products={ Products } />
           <CartContent />
         </CartManager.Provider>
       </ProductsInCart.Provider>

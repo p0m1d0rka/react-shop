@@ -1,5 +1,5 @@
 import React from 'react';
-import  { bind, each, merge, find}  from 'lodash';
+import  { bind, each, merge, find, map }  from 'lodash';
 import Catalog from './catalog/catalog.js';
 import CartContent from './cart_content/cart_content.js';
 import Products from '../constants/products.js';
@@ -9,30 +9,30 @@ export const CartManager = React.createContext()
 export default class CatalogPage extends React.Component{
   constructor(props){
     super(props)
-    this.state = { productsInCart: [] }
-    this.toCart = bind(this.toCart, this)
+    this.state = { 
+      products: Products,
+      cart: {
+       entries: [], 
+      } 
+    }
+    this.addToCart = bind(this.addToCart, this)
   }
 
-  toCart(e, id, quantity, dropQuantity) {
-    const { productsInCart } = this.state
-    let elem = find(productsInCart, {id})
+  addToCart(product, quantity=1) {
+    const { entries } = this.state.cart
+    let new_state =  entries.slice();
+    let elem = find(entries, { id: product.id })
+
     if(typeof elem != 'undefined'){
-      let new_state = []
-      each(productsInCart, item => {
-        let mutateItem = Object.assign({}, item)
-        if(mutateItem.id == id){
-          mutateItem.quantity = mutateItem.quantity + parseInt(quantity, 10)
-        }
-        new_state.push(mutateItem)
+      new_state = map(new_state, (cartProduct) => {
+        cartProduct.id == product.id ? cartProduct.quantity += 1 : null
+        return cartProduct
       })
-      this.setState({productsInCart: new_state})
     }else{
-      let new_state =  productsInCart.slice();
-      let new_product = find(Products, { id })
-      new_state.push(merge(new_product, { quantity: parseInt(quantity, 10) }))
-      this.setState({productsInCart: new_state})
+      new_state.push(merge(product, { quantity: parseInt(quantity, 10) }))
     }
-    dropQuantity()
+
+    this.setState({cart: {entries: new_state}})
   }
 
   dragOver = (e) => {
@@ -50,17 +50,19 @@ export default class CatalogPage extends React.Component{
   }
 
   render() {
+    const { entries } = this.state.cart
+    const { products } = this.state
     return (
-      <ProductsInCart.Provider value={this.state.productsInCart}>
+      <ProductsInCart.Provider value={ entries }>
         <CartManager.Provider value={
           {
-            toCart: this.toCart, 
+            addToCart: this.addToCart, 
             dragOver: this.dragOver, 
             dragDrop: this.dragDrop,
             dragStart: this.dragStart
           }}
         >
-          <Catalog products={ Products } />
+          <Catalog products={ products } />
           <CartContent />
         </CartManager.Provider>
       </ProductsInCart.Provider>

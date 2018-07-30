@@ -55,7 +55,7 @@ export default class ProductCard extends React.Component {
                 <Input placeholder='Кол-во' value={ quantity } onChange={ (e) => this.handleQuantity(e) }/>
                 <Button
                   color='success'
-                  onClick={(e) => manager.toCart(e, product.id, this.state.quantity, this.dropQuantity)}
+                  onClick={(e) => manager.addToCart(product, this.state.quantity)}
                 >
                   <span>В корзину</span>
                   <FontAwesomeIcon icon={ faCartPlus }  size="1x"/>

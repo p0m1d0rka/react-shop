@@ -2,12 +2,9 @@ import React from 'react';
 import Image from '../image/image.js';
 import TextBox from '../text_box/text_box.js';
 import Price from '../price/price.js';
-import { CartManager } from '../catalog_page.js'
-import { Button, Input } from 'reactstrap';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCartPlus } from '@fortawesome/free-solid-svg-icons'
+import { Input } from 'reactstrap';
 import './product_card.scss';
-
+import ToCartBtn from '../to_cart_btn/to_cart_btn.js';
 
 export default class ProductCard extends React.Component {
   constructor(props){
@@ -16,10 +13,7 @@ export default class ProductCard extends React.Component {
   }
 
   handleQuantity = (e) =>{
-    let value = parseInt(e.target.value)
-    isNaN(value) ? 
-      e.target.value = 1 : 
-      e.target.value = value
+    let value = parseInt(e.target.value)  || 1
     this.setState({quantity: value}) 
   }
 
@@ -31,40 +25,28 @@ export default class ProductCard extends React.Component {
     const { product } = this.props
     const { quantity } = this.state
     return (
-      <CartManager.Consumer>
-        {
-          manager => {
-            return (
-              <div 
-                onDragStart={(e) => manager.dragStart(e, product.id)}
-                className='productCard' 
-                draggable
-              >
-                <Image 
-                  src={ product.imageUrl }
-                  width='200px' 
-                  height='200px'
-                  alt={ product.title }
-                />
-                <TextBox >
-                  { product.title }
-                </TextBox>
-                <Price currency='USD' locale="en-US">
-                  { product.price }
-                </Price>
-                <Input placeholder='Кол-во' value={ quantity } onChange={ (e) => this.handleQuantity(e) }/>
-                <Button
-                  color='success'
-                  onClick={(e) => manager.addToCart(product, this.state.quantity)}
-                >
-                  <span>В корзину</span>
-                  <FontAwesomeIcon icon={ faCartPlus }  size="1x"/>
-                </Button>
-              </div>
-            )
-          }
-        }
-      </CartManager.Consumer>
-    );
+      <div 
+        className='productCard' 
+      >
+        <Image 
+          src={ product.imageUrl }
+          width='200px' 
+          height='200px'
+          alt={ product.title }
+        />
+        <TextBox >
+          { product.title }
+        </TextBox>
+        <Price currency='USD' locale="en-US">
+          { product.price }
+        </Price>
+        <Input placeholder='Кол-во' value={ quantity } onChange={ (e) => this.handleQuantity(e) }/>
+        <ToCartBtn 
+          dropQuantity={ this.dropQuantity } 
+          quantity={ quantity }
+          product={ product }
+        />
+      </div>
+    )
   }
 }

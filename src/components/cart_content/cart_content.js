@@ -1,7 +1,7 @@
-import React, { Component } from 'react'
-import { Table } from 'reactstrap'
-import { ProductsInCart } from '../catalog_page.js'
-import Price from '../price/price.js'
+import React, { Component } from 'react';
+import { Table } from 'reactstrap';
+import { CartManager } from '../catalog_page.js';
+import Price from '../price/price.js';
 
 export default class CartContent extends Component {
   render() {
@@ -18,11 +18,10 @@ export default class CartContent extends Component {
             </tr>
           </thead>
           <tbody>
-            <ProductsInCart.Consumer>
-              {
-                productsInCart => {
+            <CartManager.Consumer>
+              {manager => {
                   return (
-                    productsInCart.map((product,i) => 
+                    manager.getProducts.map((product,i) => 
                       <tr key={ `productInCart-${product.id}` }>
                         <td>{ i+1 }</td>
                         <td>{ product.title }</td>
@@ -42,7 +41,7 @@ export default class CartContent extends Component {
                   )
                 }
               }
-            </ProductsInCart.Consumer>
+            </CartManager.Consumer>
           </tbody>
         </Table>
       </div>

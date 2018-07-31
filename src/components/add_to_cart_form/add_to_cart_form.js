@@ -1,6 +1,7 @@
 import React from 'react';
 import { Input } from 'reactstrap';
 import AddToCartBtn from '../add_to_cart_btn/add_to_cart_btn.js';
+import { CartManager } from '../catalog_page.js';
 
 export default class AddToCartForm extends React.Component {
   constructor(props){
@@ -23,11 +24,18 @@ export default class AddToCartForm extends React.Component {
     return (
       <div>
         <Input placeholder='Кол-во' value={ quantity } onChange={ (e) => this.handleQuantity(e) }/>
-        <AddToCartBtn 
-          dropQuantity={ this.dropQuantity } 
-          quantity={ quantity }
-          product={ product }
-        />
+        <CartManager.Consumer>
+          {
+            manager => 
+              <AddToCartBtn 
+                onClick={(e) => {
+                    manager.addToCart(product, quantity)
+                    dropQuantity()
+                  }
+                }
+              />
+          }
+        </CartManager.Consumer>
       </div>
     )
   }

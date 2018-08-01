@@ -1,5 +1,19 @@
 {
   "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^1.2.0-14",
+    "@fortawesome/free-brands-svg-icons": "^5.1.0-11",
+    "@fortawesome/free-regular-svg-icons": "^5.1.0-11",
+    "@fortawesome/free-solid-svg-icons": "^5.1.0-11",
+    "@fortawesome/react-fontawesome": "^0.1.0-11",
+    "babel-plugin-transform-class-properties": "^6.24.1",
+    "bootstrap": "4.1.1",
+    "file-loader": "^1.1.11",
+    "font-awesome": "^4.7.0",
+    "node-sass": "^4.9.2",
+    "prop-types": "^15.6.2",
+    "react-fontawesome": "^1.6.1",
+    "reactstrap": "^6.3.0",
+    "sass-loader": "^7.0.3"
   },
   "scripts": {
     "start": "webpack-dev-server --mode development",
@@ -17,12 +31,12 @@
     "babel-preset-react": "^6.24.1",
     "clean-webpack-plugin": "^0.1.19",
     "css-loader": "^1.0.0",
+    "react": "^16.4.1",
+    "react-dom": "^16.4.1",
     "style-loader": "^0.21.0",
     "webpack": "^4.15.1",
     "webpack-cli": "^3.0.8",
-    "webpack-dev-server": "^3.1.4",
-    "react": "^16.4.1",
-    "react-dom": "^16.4.1"
+    "webpack-dev-server": "^3.1.4"
   },
   "author": "",
   "license": "ISC",

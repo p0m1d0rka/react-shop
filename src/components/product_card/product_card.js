@@ -10,7 +10,6 @@ export default class ProductCard extends React.Component {
   dragStart = (e) => {
     const { product } = this.props
     e.dataTransfer.setData('productId', product.id)
-    console.log(`drag start ${product.id}`)
   }
 
   render() {

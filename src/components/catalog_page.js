@@ -12,6 +12,7 @@ export default class CatalogPage extends React.Component{
       products: Products,
       cart: {
        entries: [], 
+       isDragging: false
       } 
     }
     this.addToCart = bind(this.addToCart, this)
@@ -31,6 +32,7 @@ export default class CatalogPage extends React.Component{
   }
 
   getProducts = () => this.state.cart.entries
+  getProduct = (id) => find(this.state.products, { id })
 
   getTotalCartEntries = () =>  reduce(
     this.getProducts(), function(acc, item){
@@ -45,7 +47,8 @@ export default class CatalogPage extends React.Component{
         {
           addToCart: this.addToCart, 
           getProducts: this.getProducts(),
-          getTotalCartEntries: this.getTotalCartEntries()
+          getTotalCartEntries: this.getTotalCartEntries(),
+          getProduct: this.getProduct
         }}
       >
         <Catalog products={ products } />

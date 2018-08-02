@@ -30,7 +30,7 @@ export default class AddToCartForm extends React.Component {
               <AddToCartBtn 
                 onClick={(e) => {
                     manager.addToCart(product, quantity)
-                    dropQuantity()
+                    this.dropQuantity()
                   }
                 }
               />

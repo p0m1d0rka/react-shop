@@ -25,7 +25,7 @@ export default class Cart extends Component {
               <span>
                 { manager.getTotalCartEntries}
               </span>
-              <FontAwesomeIcon icon={ faShoppingCart }  size="3x"/>
+              <FontAwesomeIcon icon={ faShoppingCart }  size="2x"/>
             </div>
         }
       </CartManager.Consumer>

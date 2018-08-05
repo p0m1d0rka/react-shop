@@ -1,13 +1,13 @@
 import React from 'react';
 import Catalog from './catalog/catalog.js';
-import Nav from './nav/nav.js';
+import AppNav from './app_nav/app_nav.js';
 
 export default class CatalogPage extends React.Component{
   render() {
     const { products } = this.props
     return (
       <div>
-        <Nav />
+        <AppNav />
         <Catalog products={ products } />
       </div>
     );

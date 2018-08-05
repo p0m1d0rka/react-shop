@@ -2,8 +2,10 @@ import React from 'react';
 import Image from '../image/image.js';
 import TextBox from '../text_box/text_box.js';
 import Price from '../price/price.js';
+import { Link } from 'react-router-dom';
 import './product_card.scss';
 import AddToCartForm from '../add_to_cart_form/add_to_cart_form.js';
+
 
 export default class ProductCard extends React.Component {
 
@@ -33,6 +35,7 @@ export default class ProductCard extends React.Component {
           { product.price }
         </Price>
         <AddToCartForm product={ product }/>
+        <Link to={ `/product/${product.id}` }>Подробнее...</Link>
       </div>
     )
   }

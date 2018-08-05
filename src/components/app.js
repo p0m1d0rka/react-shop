@@ -6,6 +6,7 @@ import CatalogPage from './catalog_page.js';
 import ContactPage from './contact_page.js';
 import Products from '../constants/products.js';
 import NotFoundPage from './not_found_page.js';
+import { ConnectedProductPage } from './product_page.js';
 export const CartManager = React.createContext();
 
 export default class App extends React.Component{
@@ -59,7 +60,7 @@ export default class App extends React.Component{
           <Switch>
             <Route exact strict path='/' render={() => <CatalogPage products={ products }/>} />
             <Route exact strict path='/catalog' render={() => <CatalogPage products={ products }/>} />
-            <Route exact strict path='/product/:id' component={ CatalogPage } />
+            <Route exact strict path='/product/:id' component={ ConnectedProductPage } />
             <Route exact strict path='/cart' component={ CartPage } />
             <Route exact strict path='/contacts' component={ ContactPage } />
             <Route component={ NotFoundPage } />

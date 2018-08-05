@@ -1,9 +1,10 @@
-import ReactDOM from 'react-dom';
 import React from 'react';
-import CatalogPage from './components/catalog_page.js';
+import ReactDOM from 'react-dom';
+import App from './components/app.js';
 import 'bootstrap/dist/css/bootstrap.css';
 
+
 ReactDOM.render(
-  <CatalogPage />,
+  <App />,
   document.getElementById('reactApp')
 );

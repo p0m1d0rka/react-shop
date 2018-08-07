@@ -7,6 +7,11 @@ import {
   NavItem } from 'reactstrap';
 import { Link, NavLink } from 'react-router-dom';
 import Cart from '../cart/cart.js';
+import { 
+  rootPath, 
+  catalogPath, 
+  cartPath, 
+  contactPath } from '../../helpers/routes.js';
 
 export default class AppNav extends React.Component {
   constructor(props) {
@@ -30,13 +35,13 @@ export default class AppNav extends React.Component {
         <Collapse isOpen={this.state.isOpen} navbar>
           <Nav className="ml-auto" navbar>
             <NavItem>
-              <NavLink to="/catalog" className='nav-link'>Каталог</NavLink>
+              <NavLink to={ catalogPath() } className='nav-link'>Каталог</NavLink>
             </NavItem>
             <NavItem>
-              <NavLink to="/contacts" className='nav-link'>Контакты</NavLink>
+              <NavLink to={ contactPath() } className='nav-link'>Контакты</NavLink>
             </NavItem>
             <NavItem>
-              <NavLink to="/cart" className='nav-link'>
+              <NavLink to={ cartPath() } className='nav-link'>
                 <Cart />
               </NavLink>
             </NavItem>

@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { Router, Route, Switch } from 'react-router-dom';
 import  { bind, find, assign, reduce, includes }  from 'lodash';
 import CartPage from './cart_page.js';
 import CatalogPage from './catalog_page.js';
@@ -13,6 +13,8 @@ import {
   contactPath,
   catalogPath,
   productPath } from '../helpers/routes.js';
+import { history } from '../helpers/history.js';
+import { SSL_OP_ALLOW_UNSAFE_LEGACY_RENEGOTIATION } from 'constants';
 
 export const CartManager = React.createContext();
 
@@ -29,6 +31,15 @@ export default class App extends React.Component{
     this.addToCart = bind(this.addToCart, this)
   }
   
+  componentDidMount(){
+    history.listen((location, action) => {
+      if (typeof location.state != 'undefined'){
+        const { message } = location.state
+        alert(message);
+      }
+    })
+  }
+
   addToCart(product, quantity=1) {
     const { entries } = this.state.cart
     let newEntries =  entries.slice();
@@ -63,12 +74,12 @@ export default class App extends React.Component{
           getProduct: this.getProduct
         }}
       >
-        <Router>
+        <Router history={ history }>
           <Switch>
             <Route exact strict path={ rootPath() } render={() => <CatalogPage products={ products }/>} />
             <Route exact strict path={ catalogPath() } render={() => <CatalogPage products={ products }/>} />
             <Route exact strict path={ productPath() } component={ ConnectedProductPage } />
-            <Route exact strict path={ cartPath() } component={ CartPage } />
+            <Route exact strict path={ cartPath() } render={() =>  <CartPage isEmpty={ this.getProducts().length == 0 }/> } />
             <Route exact strict path={ contactPath() } component={ ContactPage } />
             <Route component={ NotFoundPage } />
           </Switch>

@@ -14,7 +14,6 @@ import {
   catalogPath,
   productPath } from '../helpers/routes.js';
 import { history } from '../helpers/history.js';
-import { SSL_OP_ALLOW_UNSAFE_LEGACY_RENEGOTIATION } from 'constants';
 
 export const CartManager = React.createContext();
 

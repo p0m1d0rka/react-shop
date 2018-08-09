@@ -1,7 +1,7 @@
 import React from 'react';
 import { Input } from 'reactstrap';
 import AddToCartBtn from '../add_to_cart_btn/add_to_cart_btn.js';
-import { CartManager } from '../catalog_page.js';
+import { CartManager } from '../app.js';
 
 export default class AddToCartForm extends React.Component {
   constructor(props){

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Table } from 'reactstrap';
-import { CartManager } from '../catalog_page.js';
+import { CartManager } from '../app.js';
 import Price from '../price/price.js';
 
 export default class CartContent extends Component {

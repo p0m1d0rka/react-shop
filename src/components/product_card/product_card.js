@@ -24,7 +24,7 @@ export default class ProductCard extends React.Component {
         onDragStart={ this.dragStart }
       >
         <Image 
-          src={ product.imageUrl }
+          src={ product.gallery[0].file.url }
           width='200px' 
           height='200px'
           alt={ product.title }

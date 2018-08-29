@@ -22,7 +22,7 @@ export default class ProductCardExtend extends React.Component {
         <Media>
           <Media left>
             <Image 
-              src={ product.imageUrl }
+              src={ product.gallery[0].file.url }
               width='400px' 
               height='400px'
               alt={ product.title }

@@ -40,37 +40,30 @@ export default class App extends React.Component{
         alert(message);
       }
     })
-    request
-      .get(productsPath())
-      .then(res => {
-        // res.body, res.headers, res.status
-        console.log(res.body)
-        const products = res.body.items.map(item => item.fields)
-        this.setState({ products })
-      })
-      .catch(err => {
-        // err.message, err.response
-        console.log(err.message)
-      });
-    request
-      .get(assetsPath())
-      .then(res => {
-        // res.body, res.headers, res.status
-        console.log(res.body)
-        const assets = res.body.items.map(item => {
-         return ({ id: item.sys.id, url: item.fields.file.url, title: item.fields.title }) 
-        })
-        this.setState({ assets })
-        console.log(assets)
-      })
-      .catch(err => {
-        // err.message, err.response
-        console.log(err.message)
-      });
-  }
+    const productsPromise = request.get(productsPath());
+    const assetsPromise = request.get(assetsPath());
 
-  getAssetById=(id) => {
-    return (this.state.assets.find({ id }))
+    Promise.all([productsPromise, assetsPromise])
+      .then(res => {
+        const productsRes = res[0].body
+        const assetsRes = res[1].body.items.map(item => assign(item.fields.file, {id: item.sys.id}))
+        const products = productsRes.items.map(item => {
+            const fields = item.fields
+            const { gallery } = item.fields 
+            const newGallery = gallery.map(gal => {
+              const assetFile = find(assetsRes, {id: gal.sys.id})
+              return assign(gal, {file: assetFile})
+            })
+            return assign(item.fields)
+          }
+        )
+        console.log(products)
+        this.setState({ products })
+
+      })
+      .catch(err => {
+        console.log(err)
+      })
   }
 
   addToCart(product, quantity=1) {

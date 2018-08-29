@@ -57,7 +57,6 @@ export default class App extends React.Component{
             return assign(item.fields)
           }
         )
-        console.log(products)
         this.setState({ products })
 
       })

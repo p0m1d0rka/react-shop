@@ -1,9 +1,8 @@
 import React from 'react';
 import { Media } from 'reactstrap';
-import Image from '../image/image.js';
-import TextBox from '../text_box/text_box.js';
 import Price from '../price/price.js';
 import { Link } from 'react-router-dom';
+import Gallery from '../gallery/gallery.js';
 import AddToCartForm from '../add_to_cart_form/add_to_cart_form.js';
 
 
@@ -21,12 +20,8 @@ export default class ProductCardExtend extends React.Component {
         <Link to='/'>К каталогу</Link>
         <Media>
           <Media left>
-            <Image 
-              src={ product.gallery[0].file.url }
-              width='400px' 
-              height='400px'
-              alt={ product.title }
-            />
+            <Gallery product={ product } />
+            
           </Media>
           <Media body>
             <Media heading>

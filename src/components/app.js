@@ -15,7 +15,7 @@ import {
   productPath } from '../helpers/routes.js';
 import { history } from '../helpers/history.js';
 import request from 'superagent';
-import { productsPath, assetsPath } from '../helpers/routes.js';
+import { productsPath, assetsPath } from '../helpers/contentful.js';
 
 export const CartManager = React.createContext();
 

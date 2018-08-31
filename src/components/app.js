@@ -14,6 +14,8 @@ import {
   catalogPath,
   productPath } from '../helpers/routes.js';
 import { history } from '../helpers/history.js';
+import request from 'superagent';
+import { productsPath, assetsPath } from '../helpers/contentful.js';
 
 export const CartManager = React.createContext();
 
@@ -21,7 +23,8 @@ export default class App extends React.Component{
   constructor(props){
     super(props)
     this.state = { 
-      products: Products,
+      products: [],
+      assets: [],
       cart: {
        entries: [], 
        isDragging: false
@@ -37,6 +40,29 @@ export default class App extends React.Component{
         alert(message);
       }
     })
+    const productsPromise = request.get(productsPath());
+    const assetsPromise = request.get(assetsPath());
+
+    Promise.all([productsPromise, assetsPromise])
+      .then(res => {
+        const productsRes = res[0].body
+        const assetsRes = res[1].body.items.map(item => assign(item.fields.file, {id: item.sys.id}))
+        const products = productsRes.items.map(item => {
+            const fields = item.fields
+            const { gallery } = item.fields 
+            const newGallery = gallery.map(gal => {
+              const assetFile = find(assetsRes, {id: gal.sys.id})
+              return assign(gal, {file: assetFile})
+            })
+            return assign(item.fields)
+          }
+        )
+        this.setState({ products })
+
+      })
+      .catch(err => {
+        console.log(err)
+      })
   }
 
   addToCart(product, quantity=1) {
